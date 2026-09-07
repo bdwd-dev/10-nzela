@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NZELA — SaaS Transport Intelligent</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #fff; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #222; }
+    .logo { font-size: 28px; font-weight: 900; color: #FF6B35; letter-spacing: 2px; }
+    .nav { display: flex; gap: 24px; }
+    .nav a { color: #888; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .nav a:hover, .nav a.active { color: #FF6B35; }
+    .hero { padding: 40px 0; }
+    .hero h1 { font-size: 32px; margin-bottom: 8px; }
+    .hero p { color: #666; font-size: 16px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+    .stat-card { background: #141414; border-radius: 12px; padding: 20px; border: 1px solid #222; }
+    .stat-value { font-size: 32px; font-weight: bold; color: #FF6B35; }
+    .stat-label { font-size: 12px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .section { margin: 32px 0; }
+    .section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #fff; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .card { background: #141414; border-radius: 12px; padding: 20px; border: 1px solid #222; }
+    .card:hover { border-color: #FF6B35; }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .card-sub { color: #666; font-size: 13px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .badge-active { background: #1a3a1a; color: #4ade80; }
+    .badge-maintenance { background: #3a2a1a; color: #fbbf24; }
+    .btn { background: #FF6B35; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+    .btn:hover { opacity: 0.9; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th { text-align: left; padding: 12px; color: #666; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #222; }
+    .table td { padding: 12px; border-bottom: 1px solid #1a1a1a; font-size: 14px; }
+    .table tr:hover { background: #1a1a1a; }
+    .footer { text-align: center; padding: 40px 0; color: #444; font-size: 13px; border-top: 1px solid #222; margin-top: 40px; }
+    .revenue-highlight { font-size: 36px; font-weight: bold; color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const API = "http://localhost:3010/api";
+
+    function App() {
+      const [stats, setStats] = useState({});
+      const [buses, setBuses] = useState([]);
+      const [transactions, setTransactions] = useState([]);
+      const [agents, setAgents] = useState([]);
+
+      useEffect(() => {
+        fetch(`${API}/stats`).then(r => r.json()).then(setStats);
+        fetch(`${API}/buses`).then(r => r.json()).then(setBuses);
+        fetch(`${API}/transactions`).then(r => r.json()).then(setTransactions);
+        fetch(`${API}/agents`).then(r => r.json()).then(setAgents);
+      }, []);
+
+      return (
+        <div>
+          <header className="header">
+            <div className="logo">🚌 NZELA</div>
+            <nav className="nav">
+              <a href="#" className="active">Dashboard</a>
+              <a href="#">Bus</a>
+              <a href="#">Agents</a>
+              <a href="#">Transactions</a>
+              <a href="#">Lignes</a>
+            </nav>
+          </header>
+
+          <div className="container">
+            <section className="hero">
+              <h1>YB Group Ltd — SaaS Transport</h1>
+              <p>Gestion intelligente de flotte • Temps réel • Mobile Money</p>
+            </section>
+
+            <div className="stats">
+              <div className="stat-card">
+                <div className="stat-value">{stats.buses || 0}</div>
+                <div className="stat-label">Bus actifs</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-value">{stats.agents || 0}</div>
+                <div className="stat-label">Agents</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-value">{stats.transactions || 0}</div>
+                <div className="stat-label">Transactions</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-value">{stats.revenue ? stats.revenue.toLocaleString() : 0} F</div>
+                <div className="stat-label">Recettes totales</div>
+              </div>
+            </div>
+
+            <section className="section">
+              <h2 className="section-title">🚌 Flotte de Bus</h2>
+              <div className="grid">
+                {buses.map(bus => (
+                  <div key={bus.id} className="card">
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'start'}}>
+                      <div>
+                        <div className="card-title">{bus.name}</div>
+                        <div className="card-sub">{bus.plate} • {bus.line}</div>
+                      </div>
+                      <span className={`badge badge-${bus.status}`}>{bus.status}</span>
+                    </div>
+                    <div style={{marginTop:12, fontSize:20, fontWeight:'bold', color:'#4ade80'}}>
+                      {bus.revenue ? bus.revenue.toLocaleString() : 0} XAF
+                    </div>
+                    <div className="card-sub">Device: {bus.device_id}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="section">
+              <h2 className="section-title">💳 Dernières Transactions</h2>
+              <table className="table">
+                <thead>
+                  <tr><th>Type</th><th>Carte/Bus</th><th>Montant</th><th>Date</th></tr>
+                </thead>
+                <tbody>
+                  {transactions.slice(0, 10).map(tx => (
+                    <tr key={tx.id}>
+                      <td>
+                        <span className={`badge ${tx.type === 'payment' ? 'badge-active' : 'badge-maintenance'}`}>
+                          {tx.type === 'payment' ? 'Paiement' : 'Recharge'}
+                        </span>
+                      </td>
+                      <td>{tx.card_uid || `Bus #${tx.bus_id}`}</td>
+                      <td style={{fontWeight:'bold'}}>{tx.amount.toLocaleString()} XAF</td>
+                      <td style={{color:'#666'}}>{new Date(tx.timestamp).toLocaleString('fr-FR')}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <section className="section">
+              <h2 className="section-title">👥 Réseau d'Agents</h2>
+              <div className="grid">
+                {agents.map(agent => (
+                  <div key={agent.id} className="card">
+                    <div className="card-title">{agent.name}</div>
+                    <div className="card-sub">{agent.location} • {agent.phone}</div>
+                    <div style={{marginTop:8, fontSize:18, fontWeight:'bold', color:'#FF6B35'}}>
+                      {agent.balance ? agent.balance.toLocaleString() : 0} XAF
+                    </div>
+                    <div className="card-sub">{agent.transactions_count} transactions</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <footer className="footer">
+            <p>© 2026 YB Group Ltd — Projet Nzela • Smart Mobility Congo</p>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

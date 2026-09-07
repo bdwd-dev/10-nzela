@@ -1,0 +1,142 @@
+{
+  "buses": [
+    {
+      "id": 1,
+      "name": "Coaster 01",
+      "plate": "BZ-1234",
+      "line": "L11: POTO POTO - LA GARE",
+      "line_code": "L11",
+      "revenue": 12500,
+      "status": "active",
+      "device_id": "KIBALU-CST-001"
+    },
+    {
+      "id": 2,
+      "name": "Coaster 02",
+      "plate": "BZ-5678",
+      "line": "L05: MAKÉLÉKÉLÉ - CENTRE VILLE",
+      "line_code": "L05",
+      "revenue": 8300,
+      "status": "active",
+      "device_id": "KIBALU-CST-002"
+    },
+    {
+      "id": 3,
+      "name": "Hiace 01",
+      "plate": "BZ-9012",
+      "line": "L03: TSIÉMÉ - BACONGO",
+      "line_code": "L03",
+      "revenue": 5600,
+      "status": "maintenance",
+      "device_id": "KIBALU-HI-001"
+    }
+  ],
+  "agents": [
+    {
+      "id": 1,
+      "name": "Agent Mvouma",
+      "phone": "+242061111111",
+      "location": "Arrêt Poto Poto",
+      "balance": 45000,
+      "transactions_count": 23
+    },
+    {
+      "id": 2,
+      "name": "Agent Nzuzi",
+      "phone": "+242062222222",
+      "location": "Arrêt Makelekele",
+      "balance": 32000,
+      "transactions_count": 18
+    },
+    {
+      "id": 3,
+      "name": "Agent Bokoko",
+      "phone": "+242063333333",
+      "location": "Arrêt Gare Centrale",
+      "balance": 28000,
+      "transactions_count": 15
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "type": "recharge",
+      "agent_id": 1,
+      "card_uid": "YB-CARD-001",
+      "amount": 5000,
+      "timestamp": "2026-09-07T08:30:00Z"
+    },
+    {
+      "id": 2,
+      "type": "payment",
+      "bus_id": 1,
+      "card_uid": "YB-CARD-001",
+      "amount": 150,
+      "timestamp": "2026-09-07T09:15:00Z"
+    },
+    {
+      "id": 3,
+      "type": "payment",
+      "bus_id": 1,
+      "card_uid": "YB-CARD-002",
+      "amount": 150,
+      "timestamp": "2026-09-07T09:20:00Z"
+    },
+    {
+      "id": 4,
+      "type": "payment",
+      "bus_id": 2,
+      "card_uid": "YB-CARD-001",
+      "amount": 250,
+      "timestamp": "2026-09-07T10:00:00Z"
+    },
+    {
+      "id": 5,
+      "type": "recharge",
+      "agent_id": 2,
+      "card_uid": "YB-CARD-003",
+      "amount": 3000,
+      "timestamp": "2026-09-07T11:30:00Z"
+    }
+  ],
+  "lines": [
+    {
+      "code": "L11",
+      "name": "POTO POTO - LA GARE",
+      "price": 150,
+      "stops": 12
+    },
+    {
+      "code": "L05",
+      "name": "MAKÉLÉKÉLÉ - CENTRE VILLE",
+      "price": 250,
+      "stops": 8
+    },
+    {
+      "code": "L03",
+      "name": "TSIÉMÉ - BACONGO",
+      "price": 200,
+      "stops": 10
+    },
+    {
+      "code": "L08",
+      "name": "POINTE-NOIRE - VILLE",
+      "price": 300,
+      "stops": 15
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "YB Group Admin",
+      "role": "admin",
+      "email": "admin@ybgroup.cg"
+    },
+    {
+      "id": 2,
+      "name": "Transporteur Mvouma",
+      "role": "operator",
+      "email": "mvouma@ybgroup.cg"
+    }
+  ]
+}
